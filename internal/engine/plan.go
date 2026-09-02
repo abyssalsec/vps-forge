@@ -4,31 +4,14 @@ import (
 	"sort"
 
 	"github.com/abyssalsec/vps-forge/internal/config"
+	"github.com/abyssalsec/vps-forge/internal/module"
 	"github.com/abyssalsec/vps-forge/internal/platform"
 )
-
-type Risk string
-
-const (
-	RiskLow    Risk = "low"
-	RiskMedium Risk = "medium"
-	RiskHigh   Risk = "high"
-)
-
-type Change struct {
-	ID      string
-	Module  string
-	Action  string
-	Risk    Risk
-	Summary string
-	Current string
-	Desired string
-}
 
 type Plan struct {
 	Profile          string
 	RequestedModules []string
-	Changes          []Change
+	Changes          []module.Change
 }
 
 func requestedModules(
@@ -137,11 +120,11 @@ func BuildPlan(
 
 		plan.Changes = append(
 			plan.Changes,
-			Change{
+			module.Change{
 				ID:      "server.hostname",
 				Module:  "platform",
 				Action:  "update",
-				Risk:    RiskLow,
+				Risk:    module.RiskLow,
 				Summary: "Update system hostname",
 				Current: facts.Hostname,
 				Desired: cfg.Server.Hostname,
@@ -154,11 +137,11 @@ func BuildPlan(
 
 		plan.Changes = append(
 			plan.Changes,
-			Change{
+			module.Change{
 				ID:      "server.timezone",
 				Module:  "platform",
 				Action:  "update",
-				Risk:    RiskLow,
+				Risk:    module.RiskLow,
 				Summary: "Update system timezone",
 				Current: facts.Timezone,
 				Desired: cfg.Server.Timezone,

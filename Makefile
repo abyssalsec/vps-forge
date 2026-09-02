@@ -2,7 +2,7 @@ VERSION := $(shell cat VERSION)
 BINARY := bin/vps-forge
 LDFLAGS := -s -w -X main.version=$(VERSION)
 
-.PHONY: build test fmt fmt-check vet check clean
+.PHONY: build test race fmt fmt-check vet check clean
 
 build:
 	mkdir -p bin
@@ -14,6 +14,9 @@ build:
 
 test:
 	go test ./...
+
+race:
+	go test -race ./...
 
 fmt:
 	gofmt -w cmd internal
