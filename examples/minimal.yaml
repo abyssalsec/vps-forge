@@ -1,0 +1,47 @@
+version: 1
+profile: minimal
+
+server:
+  hostname: app01
+  timezone: UTC
+
+users:
+  - name: deploy
+    sudo: true
+    ssh_authorized_keys: []
+
+security:
+  ssh:
+    enabled: true
+    password_authentication: false
+    root_login: false
+
+  firewall:
+    enabled: true
+    provider: ufw
+
+  fail2ban:
+    enabled: true
+
+  unattended_upgrades:
+    enabled: true
+
+web:
+  nginx:
+    enabled: false
+
+  tls:
+    enabled: false
+
+runtime:
+  php:
+    enabled: false
+
+database:
+  engine: ""
+
+docker:
+  enabled: false
+
+backup:
+  enabled: false
